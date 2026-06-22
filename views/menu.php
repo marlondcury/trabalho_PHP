@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(90deg, #081529, #123a6f);">
     <div class="container py-2">
         <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="../index.php">
-            <span>Locadora Web</span>
+            <span>Locadora Web!!</span>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">

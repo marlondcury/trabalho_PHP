@@ -17,7 +17,7 @@ if (isset($_POST['entrar'])) {
     if ($usuarios != NULL) { 
         session_start();
         $_SESSION['usuario'] = $usuarios;
-        header('Location: controllerVeiculo.php?opcao=2');
+        header('Location: controllerDashboard.php');   
         exit;
     } else { 
         header('Location: ../views/login.php?erro=1');
