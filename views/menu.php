@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background: linear-gradient(90deg, #081529, #123a6f);">
     <div class="container py-2">
-        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="../index.php">
+        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="/LocadoraWeb/views/index.php">
             <span>Locadora Web!!</span>
         </a>
 

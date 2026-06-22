@@ -1,12 +1,14 @@
 <?php
 session_start();
+include("menu.php"); 
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Locadora Web fsdfsdfd</title>
+    <title>Locadora Web</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,41 +18,6 @@ session_start();
     <link rel="stylesheet" href="/LocadoraWeb/css/style.css">
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div class="container py-2">
-        <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
-            <span style="font-size:1.5rem;">🚗</span>
-            <span>Locadora Web</span>
-        </a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php">Início</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/LocadoraWeb/views/empresa.php"">Empresa</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="veiculos.php">Veículos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contato.php">Fale Conosco</a>
-                </li>
-                <li class="nav-item">
-                    <a class="btn btn-light btn-sm px-4 rounded-pill fw-semibold ms-lg-2" href="login.php">
-                        Login
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
 
 <header class="hero">
     <div class="container">
