@@ -1,5 +1,20 @@
 <?php 
-// O menu continua sendo incluído aqui pois é uma parte visual da View
+// 1. Inicia a sessão para podermos acessar os dados
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// 2. Trava de Segurança: Se não existir ninguém logado na sessão, redireciona para o login
+if (!isset($_SESSION['usuarioLogado'])) {
+    header("Location: login.php");
+    exit; // Para a execução da página aqui mesmo
+}
+
+// 3. Resgata os dados da sessão e passa para as variáveis que o seu HTML já está usando
+$usuarioLogado = $_SESSION['usuarioLogado'];
+$perfil = $_SESSION['perfil'];
+
+// 4. Agora sim, inclui o menu e carrega o resto da página
 include("menu.php"); 
 ?>
 <!DOCTYPE html>

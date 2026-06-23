@@ -2,10 +2,12 @@
    VARIÁVEIS GERAIS E BASE
    ========================================= */
 :root {
-    --cor-primaria: #0d6efd;
-    --cor-secundaria: #0b1f3a;
-    --cor-fundo: #f4f7fb;
-    --cor-texto: #1f2a37;
+    --cor-primaria: #0d6efd; /* Azul corporativo, substitui o verde neon */
+    --cor-primaria-hover: #0b5ed7;
+    --cor-secundaria: #0f172a; /* Azul escuro sofisticado/SaaS */
+    --cor-fundo: #f8fafc; /* Fundo cinza ultra-claro, mais moderno */
+    --cor-texto: #475569; /* Texto cinza suave, melhor para leitura que preto puro */
+    --cor-titulo: #0f172a;
 }
 
 * {
@@ -17,28 +19,26 @@ body {
     color: var(--cor-texto);
 }
 
-/* Fundo específico para a página de Login */
+/* Mantemos o login escuro para destacar o card branco */
 body.pagina-login {
-    background: linear-gradient(rgba(8, 21, 41, .82), rgba(8, 21, 41, .82)),
+    background: linear-gradient(rgba(15, 23, 42, .85), rgba(15, 23, 42, .85)),
                 url('../img/banner.jpg') center/cover no-repeat fixed;
     min-height: 100vh;
 }
 
 /* =========================================
-   NAVEGAÇÃO
+   NAVEGAÇÃO (Clean & Branca)
    ========================================= */
 .navbar {
-    background: linear-gradient(90deg, #081529, #123a6f);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, .15);
+    background: #ffffff !important; /* Fundo branco e limpo */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Linha divisória elegante */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .02);
 }
 
 .navbar-brand {
     font-weight: 700;
-    letter-spacing: .5px;
-}
-
-.topbar {
-    background: #081529;
+    letter-spacing: -.5px;
+    color: var(--cor-titulo) !important;
 }
 
 /* =========================================
@@ -46,27 +46,30 @@ body.pagina-login {
    ========================================= */
 .hero {
     min-height: 85vh;
-    background: linear-gradient(rgba(5, 10, 20, .72), rgba(5, 10, 20, .72)),
-                url('../img/banner.jpg') center/cover no-repeat;
+    /* Gradiente claro super suave */
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+    color: var(--cor-titulo); /* Conflito resolvido: texto agora é escuro */
     display: flex;
     align-items: center;
-    color: #fff;
 }
 
 .hero h1 {
     font-size: clamp(2.5rem, 5vw, 4.8rem);
     font-weight: 800;
-    line-height: 1.05;
+    line-height: 1.1;
+    letter-spacing: -1.5px; /* Deixa a fonte mais unida e moderna */
 }
 
 .hero p {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     max-width: 700px;
-    opacity: .95;
+    color: var(--cor-texto);
+    margin-top: 20px;
 }
 
+/* Páginas internas com cabeçalho escuro sólido (sem degradê) */
 .page-header, .header-contato, .header-empresa {
-    background: linear-gradient(135deg, #081529, #123a6f);
+    background: var(--cor-secundaria);
     color: white;
     padding: 70px 0;
 }
@@ -74,106 +77,113 @@ body.pagina-login {
 /* =========================================
    CARDS E CAIXAS
    ========================================= */
-/* Unificando estilos de cards parecidos */
-.card-bloco, .card-contato, .card-empresa, .card-box {
-    border: none;
-    border-radius: 22px;
-    box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
+.card-bloco, .card-contato, .card-empresa, .card-box, .destaque {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.04);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px -10px rgba(15, 23, 42, .06); /* Sombra difusa e premium */
 }
 
 .card-moderno {
-    border: none;
-    border-radius: 22px;
-    box-shadow: 0 12px 30px rgba(15, 23, 42, .08);
-    transition: .3s ease;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.04);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px -10px rgba(15, 23, 42, .06);
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição mais fluida */
     overflow: hidden;
 }
 
 .card-moderno:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, .14);
-}
-
-.destaque {
-    background: white;
-    border-radius: 26px;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, .08);
-    overflow: hidden;
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, .12);
 }
 
 .login-box {
     border: none;
-    border-radius: 26px;
+    border-radius: 24px;
     overflow: hidden;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: #ffffff;
 }
 
 .login-header {
-    background: linear-gradient(135deg, #0d6efd, #4da3ff);
+    background: var(--cor-secundaria);
     color: white;
-    padding: 28px;
+    padding: 32px;
 }
 
 /* =========================================
    FORMULÁRIOS
    ========================================= */
 .form-control, .form-select {
-    border-radius: 14px;
+    border-radius: 12px;
     padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+}
+
+.form-control:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+    background-color: #ffffff;
 }
 
 /* =========================================
    BOTÕES
    ========================================= */
-.btn-buscar, .btn-enviar, .btn-login {
-    border-radius: 14px;
-    padding: 14px 24px;
+.btn-buscar, .btn-enviar, .btn-login, .btn-acao {
+    border-radius: 12px;
+    padding: 14px 28px;
     font-weight: 600;
+    transition: all .2s ease;
 }
 
 .btn-custom {
     border-radius: 999px;
-    padding: 12px 22px;
+    padding: 12px 24px;
     font-weight: 600;
 }
 
-.btn-acao {
-    padding: 14px 28px;
-    border-radius: 14px;
-    font-weight: 600;
-    transition: .3s ease;
+.btn-primary {
+    background-color: var(--cor-primaria);
+    border: none;
 }
 
-.btn-acao:hover {
+.btn-primary:hover {
+    background-color: var(--cor-primaria-hover);
     transform: translateY(-2px);
-    box-shadow: 0 12px 25px rgba(13, 110, 253, .25);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, .25);
 }
 
 /* =========================================
    UTILITÁRIOS E EXTRAS
    ========================================= */
-.secao { padding: 80px 0; }
+.secao { padding: 90px 0; }
 
 .icone-card {
-    width: 68px; height: 68px;
+    width: 60px; height: 60px;
     display: flex; align-items: center; justify-content: center;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #0d6efd, #4da3ff);
-    color: white;
-    font-size: 1.8rem;
-    margin-bottom: 18px;
+    border-radius: 16px;
+    background: rgba(13, 110, 253, 0.08); /* Fundo sutil e translúcido */
+    color: var(--cor-primaria); /* Cor sólida no ícone */
+    font-size: 1.6rem;
+    margin-bottom: 20px;
 }
 
 .footer {
-    background: #081529;
-    color: #cbd5e1;
-    padding: 28px 0;
+    background: #ffffff;
+    color: var(--cor-texto);
+    padding: 40px 0;
+    border-top: 1px solid rgba(0,0,0,0.05);
 }
 
+/* Ajustado para ficar legível no fundo branco da Hero */
 .badge-info {
-    background: rgba(255, 255, 255, .12);
-    border: 1px solid rgba(255, 255, 255, .18);
-    padding: 10px 16px;
+    background: rgba(13, 110, 253, 0.1);
+    color: var(--cor-primaria);
+    border: 1px solid rgba(13, 110, 253, 0.2);
+    padding: 8px 18px;
     border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
 }

@@ -1,6 +1,6 @@
 <?php
 
-class conexaoDao
+class ConexaoDao
 {
       private $servidor_mysql = 'localhost';
       private $nome_banco = 'locadoraVeiculos';

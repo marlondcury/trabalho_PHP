@@ -1,35 +1,60 @@
 <?php
+session_start();
 
-// Agora o nome bate 100% com o arquivo que acabamos de criar!
-require_once(__DIR__ . '/../dao/usuariosDAO.php');
+// Importa a sua classe de conexão (Ajuste o caminho se a sua pasta DAO estiver em outro lugar)
+require_once '../dao/conexao.inc.php'; 
 
-if (isset($_POST['entrar'])) { 
-    $email = $_POST['login']; 
-    $senha = $_POST['senha'];
-
-    $usuariosDao = new usuariosDao();
-    $usuarios = null;
-
-    if (method_exists($usuariosDao, 'autenticar')) {
-        $usuarios = $usuariosDao->autenticar($email, $senha);
-    }
-
-    if ($usuarios != NULL) { 
-        session_start();
-        $_SESSION['usuario'] = $usuarios;
-        header('Location: controllerDashboard.php');   
-        exit;
-    } else { 
-        header('Location: ../views/login.php?erro=1');
-        exit;
-    }
-}
-
-if (isset($_REQUEST['opcao']) && $_REQUEST['opcao'] == 2) { 
-    session_start();
-    unset($_SESSION['usuario']);
-    header('Location: /LocadoraWeb/index.php');
+// 1. Tratamento de Logout (Sair)
+if (isset($_GET['acao']) && $_GET['acao'] == 'logout') {
+    unset($_SESSION['usuarioLogado']);
+    unset($_SESSION['perfil']);
+    session_destroy();
+    header("Location: ../views/index.php");
     exit;
 }
 
+// 2. Tratamento de Login (Entrar)
+if (isset($_POST['entrar'])) {
+    $login = $_POST['login'];
+    $senha = $_POST['senha'];
+
+    try {
+        // INSTANCIANDO O SEU DAO AQUI!
+        $conexao = new ConexaoDao();
+        $pdo = $conexao->getConexao();
+
+        // PASSO 1: Verifica na tabela 'usuarios' se o login e senha batem
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE user = :login AND senha = :senha");
+        $stmt->execute(['login' => $login, 'senha' => $senha]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($usuario) { 
+            
+            // PASSO 2: Busca o nome na tabela 'socios' usando o email
+            $stmtSocio = $pdo->prepare("SELECT nome FROM socios WHERE email = :login");
+            $stmtSocio->execute(['login' => $login]);
+            $socio = $stmtSocio->fetch(PDO::FETCH_ASSOC);
+
+            // Se achou o sócio, usa o Nome. Se a tabela estiver vazia, usa o próprio email.
+            $nomeParaExibir = $socio ? $socio['nome'] : $usuario['user'];
+
+            $perfil = $usuario['perfil'];
+            // Salva na sessão
+            $_SESSION['usuarioLogado'] = ['user' => $nomeParaExibir];
+            $_SESSION['perfil'] = $perfil;
+
+            // Redireciona para o Dashboard
+            header("Location: ../views/dashboard.php");
+            exit;
+
+        } else {
+            // Login ou senha incorretos, volta pra tela de login
+            header("Location: ../views/login.php?erro=1");
+            exit;
+        }
+
+    } catch (PDOException $e) {
+        echo "Erro de conexão com o banco de dados: " . $e->getMessage();
+    }
+}
 ?>
