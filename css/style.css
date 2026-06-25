@@ -2,7 +2,7 @@
    VARIÁVEIS GERAIS E BASE
    ========================================= */
 :root {
-    --cor-primaria: #0d6efd; /* Azul corporativo, substitui o verde neon */
+    --cor-primaria: #4647AE; /* Azul corporativo, substitui o verde neon */
     --cor-primaria-hover: #0b5ed7;
     --cor-secundaria: #0f172a; /* Azul escuro sofisticado/SaaS */
     --cor-fundo: #f8fafc; /* Fundo cinza ultra-claro, mais moderno */
@@ -22,7 +22,7 @@ body {
 /* Mantemos o login escuro para destacar o card branco */
 body.pagina-login {
     background: linear-gradient(rgba(15, 23, 42, .85), rgba(15, 23, 42, .85)),
-                url('../img/banner.jpg') center/cover no-repeat fixed;
+                url('../views/imagens/hero.jpg') center/cover no-repeat fixed;
     min-height: 100vh;
 }
 
@@ -46,11 +46,11 @@ body.pagina-login {
    ========================================= */
 .hero {
     min-height: 85vh;
-    /* Gradiente claro super suave */
-    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-    color: var(--cor-titulo); /* Conflito resolvido: texto agora é escuro */
+    color: var(--cor-fundo); 
     display: flex;
     align-items: center;
+    background: linear-gradient(rgba(15, 23, 42, .85), rgba(15, 23, 42, .85)),
+                url('../views/imagens/hero.jpg') center/cover no-repeat fixed;
 }
 
 .hero h1 {
@@ -63,7 +63,7 @@ body.pagina-login {
 .hero p {
     font-size: 1.15rem;
     max-width: 700px;
-    color: var(--cor-texto);
+    color: var(--cor-fundo);
     margin-top: 20px;
 }
 
@@ -180,7 +180,7 @@ body.pagina-login {
 /* Ajustado para ficar legível no fundo branco da Hero */
 .badge-info {
     background: rgba(13, 110, 253, 0.1);
-    color: var(--cor-primaria);
+    color: var(--cor-fundo);
     border: 1px solid rgba(13, 110, 253, 0.2);
     padding: 8px 18px;
     border-radius: 999px;

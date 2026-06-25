@@ -30,13 +30,13 @@ if (isset($_POST['entrar'])) {
 
         if ($usuario) { 
             
-            // PASSO 2: Busca o nome na tabela 'socios' usando o email
-            $stmtSocio = $pdo->prepare("SELECT nome FROM socios WHERE email = :login");
-            $stmtSocio->execute(['login' => $login]);
-            $socio = $stmtSocio->fetch(PDO::FETCH_ASSOC);
+                    // PASSO 2: Busca o nome na tabela 'clientes' usando o email
+            $stmtCliente = $pdo->prepare("SELECT nome FROM clientes WHERE email = :login");
+            $stmtCliente->execute(['login' => $login]);
+            $clienteBanco = $stmtCliente->fetch(PDO::FETCH_ASSOC);
 
-            // Se achou o sócio, usa o Nome. Se a tabela estiver vazia, usa o próprio email.
-            $nomeParaExibir = $socio ? $socio['nome'] : $usuario['user'];
+            // Se achou o cliente, usa o Nome. Se não achou, usa o próprio email.
+            $nomeParaExibir = $clienteBanco ? $clienteBanco['nome'] : $usuario['user'];
 
             $perfil = $usuario['perfil'];
             // Salva na sessão

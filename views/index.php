@@ -31,12 +31,19 @@ include("menu.php");
                 </p>
 
                 <div class="d-flex flex-wrap gap-3">
-                    <a href="veiculos.php" class="btn btn-primary btn-acao">
+                    <a href="buscaVeiculo.php" class="btn btn-primary btn-acao">
                         Ver veículos
                     </a>
-                    <a href="login.php" class="btn btn-outline-light btn-acao">
-                        Acessar sistema
-                    </a>
+                    <?php if(!isset($_SESSION['usuarioLogado'])): ?>
+                        <a href="login.php" class="btn btn-outline-light btn-acao">
+                            Acessar sistema
+                        </a>
+                    <?php else: ?>
+                        <a href="dashboard.php" class="btn btn-outline-light btn-acao">
+                            Ir para o Painel
+                        </a>
+                    <?php endif; ?>
+                   
                 </div>
             </div>
         </div>
@@ -107,14 +114,4 @@ include("menu.php");
         </div>
     </div>
 </section>
-
-<footer class="footer">
-    <div class="container text-center">
-        <p class="mb-1 fw-semibold">Locadora Web</p>
-        <small>Projeto acadêmico — sistema de locação de veículos</small>
-    </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php require_once "includes/rodape.inc.php" ?>

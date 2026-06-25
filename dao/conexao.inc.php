@@ -2,7 +2,7 @@
 
 class ConexaoDao
 {
-      private $servidor_mysql = 'localhost';
+      private $servidor_mysql = '127.0.0.1;port=8889';
       private $nome_banco = 'locadoraVeiculos';
       private $usuario = 'root';
       private $senha = 'root'; 
