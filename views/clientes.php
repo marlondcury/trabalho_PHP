@@ -1,5 +1,5 @@
 <?php
-// Inicia a sessão e faz a trava de segurança: só o Administrador (a) entra aqui!
+// Inicia a sessão e faz a trava de segurança
 session_start();
 if (!isset($_SESSION['usuarioLogado']) || $_SESSION['perfil'] != 'A') {
     header("Location: dashboard.php");
@@ -15,7 +15,7 @@ $pdo = $conexao->getConexao();
 $stmt = $pdo->query("SELECT * FROM clientes");
 $clientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Inclui o menu inteligente que criamos
+// Inclui o menu 
 include("menu.php");
 ?>
 <!DOCTYPE html>

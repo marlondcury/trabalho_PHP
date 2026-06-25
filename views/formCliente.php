@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Trava de segurança: Apenas Administrador ('a') acessa
+// Trava de segurança: Apenas Administrador ('A') acessa
 if (!isset($_SESSION['usuarioLogado']) || $_SESSION['perfil'] != 'A') {
     header("Location: dashboard.php");
     exit;
@@ -18,7 +18,7 @@ $cliente = [
     'email' => ''
 ];
 
-// Se existir um CPF na URL, significa que estamos no modo "Editar"
+// Se existir um CPF na URL,  modo "Editar"
 if (isset($_GET['cpf'])) {
     $modoEdicao = true;
     

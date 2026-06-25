@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Importa a sua classe de conexão (Ajuste o caminho se a sua pasta DAO estiver em outro lugar)
+// Importa a  classe de conexão
 require_once '../dao/conexao.inc.php'; 
 
 // 1. Tratamento de Logout (Sair)
@@ -19,7 +19,7 @@ if (isset($_POST['entrar'])) {
     $senha = $_POST['senha'];
 
     try {
-        // INSTANCIANDO O SEU DAO AQUI!
+        // INSTANCIANDO O  DAO AQUI!
         $conexao = new ConexaoDao();
         $pdo = $conexao->getConexao();
 

@@ -9,11 +9,10 @@ if (!isset($_SESSION['usuarioLogado'])) {
     // Se não tem ninguém logado, mostra o menu de visitante
     include 'includes/menu.inc.php';
 } else {
-    // Se está logado, verifica a letra do perfil (a = adm, c = cliente)
+    // Se está logado, verifica a letra do perfil (A= adm, C = cliente)
     if ($_SESSION['perfil'] == 'A') {
         include 'includes/menuA.inc.php';
     } else {
-        // Crie o arquivo menuC.inc.php na pasta includes para o cliente!
         include 'includes/menuC.inc.php';
     }
 }

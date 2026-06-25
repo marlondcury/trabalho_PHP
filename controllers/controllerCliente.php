@@ -27,7 +27,7 @@ try {
 
         // PASSO 1: Cria o acesso de login do cliente PRIMEIRO
         $senhaPadrao = '123456'; // Senha inicial para todos os clientes novos
-        $stmtUser = $pdo->prepare("INSERT INTO usuarios (user, senha, perfil) VALUES (:email, :senha, 'c')");
+        $stmtUser = $pdo->prepare("INSERT INTO usuarios (user, senha, perfil) VALUES (:email, :senha, 'C')");
         $stmtUser->execute(['email' => $email, 'senha' => $senhaPadrao]);
 
         // PASSO 2: Agora sim, com o login criado, podemos cadastrar o cliente
@@ -63,7 +63,7 @@ try {
         $emailAntigo = $clienteAntigo['email'];
 
         // 2. Se o administrador alterou o e-mail no formulário, atualiza o login!
-        // O "CASCADE" do banco vai cuidar de alterar na tabela clientes para você.
+        // O "CASCADE" do banco vai alterar na tabela clientes.
         if ($emailAntigo != $novoEmail) {
             $stmtUpdateUser = $pdo->prepare("UPDATE usuarios SET user = :novoEmail WHERE user = :emailAntigo");
             $stmtUpdateUser->execute(['novoEmail' => $novoEmail, 'emailAntigo' => $emailAntigo]);
