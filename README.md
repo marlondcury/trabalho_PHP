@@ -16,7 +16,7 @@ O sistema foi dividido em três áreas principais de acesso, garantindo usabilid
 
 ###  Área Pública (Visitantes)
 - [x] Apresentação da empresa e logotipo customizado.
-- [] Sistema de Login (redirecionamento baseado no perfil: Cliente ou Admin).
+- [x] Sistema de Login (redirecionamento baseado no perfil: Cliente ou Admin).
 - [] Busca e visualização do acervo de veículos disponíveis.
 - [x] Página de "Fale Conosco".
 - [x] Menu de navegação global acessível em todas as páginas.
