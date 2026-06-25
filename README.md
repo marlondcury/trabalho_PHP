@@ -16,13 +16,13 @@ O sistema foi dividido em três áreas principais de acesso, garantindo usabilid
 
 ###  Área Pública (Visitantes)
 - [x] Apresentação da empresa e logotipo customizado.
-- [] Sistema de Login (redirecionamento baseado no perfil: Cliente ou Admin).
+- [x] Sistema de Login (redirecionamento baseado no perfil: Cliente ou Admin).
 - [] Busca e visualização do acervo de veículos disponíveis.
 - [x] Página de "Fale Conosco".
 - [x] Menu de navegação global acessível em todas as páginas.
 
 ###  Área do Cliente (Restrita)
-- [] **Gestão de Perfil:** Consulta, alteração e exclusão de dados cadastrais próprios.
+- [x] **Gestão de Perfil:** Consulta, alteração e exclusão de dados cadastrais próprios.
 - [] **Busca Avançada de Veículos:** Filtros por placa, nome, fabricante e motorização.
 - [] **Sistema de Locação:** - Regra de Negócio: Um veículo só pode ser alugado para um único cliente em um determinado período de tempo.
   - Cálculo de Valor: `Valor Total = Valor Base do Veículo + Valor da Categoria`.
