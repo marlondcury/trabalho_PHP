@@ -1,18 +1,25 @@
 <?php
+class Conexao {
+    private $servidor_mysql = 'localhost';
+    private $nome_banco = 'locadora_veiculos';
+    private $usuario = 'root';
+    private $senha = '';
 
-class ConexaoDao
-{
-      private $servidor_mysql = '127.0.0.1;port=8889';
-      private $nome_banco = 'locadoraVeiculos';
-      private $usuario = 'root';
-      private $senha = 'root'; 
-      private $con;
-
-      public function getConexao()
-      {
-            $this->con = new PDO("mysql:host=$this->servidor_mysql;dbname=$this->nome_banco","$this->usuario","$this->senha");
-            return $this->con;
-      }
+    public function getConexao() {
+        try {
+            $con = new PDO(
+                "mysql:host=$this->servidor_mysql;dbname=$this->nome_banco;charset=utf8",
+                $this->usuario,
+                $this->senha
+            );
+            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $con;
+        } catch (PDOException $e) {
+            die("Erro na conexão: " . $e->getMessage());
+        }
+    }
 }
-
 ?>
+
+
+

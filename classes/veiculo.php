@@ -8,8 +8,16 @@ class Veiculo{
   private $motorizacao;
   private $valorBase;
   private $id_categoria;
+  private $veiculo_id;
+  private $disponivel;
 
-   public function __construct($placa, $nome, $anoFabricacao, $fabricante, $opcionais, $motorizacao, $valorBase, $id_categoria) {
+
+
+  function __construct() {
+    // Construtor vazio
+  }
+
+   public function setVeiculo($placa, $nome, $anoFabricacao, $fabricante, $opcionais, $motorizacao, $valorBase, $id_categoria, $veiculo_id){
         $this->placa = $placa;
         $this->nome = $nome;
         $this->anoFabricacao = $anoFabricacao;
@@ -18,6 +26,7 @@ class Veiculo{
         $this->motorizacao = $motorizacao;
         $this->valorBase = $valorBase;
         $this->id_categoria = $id_categoria;
+        $this->veiculo_id = $veiculo_id;
     }
 
     public function getPlaca() {
@@ -40,19 +49,32 @@ class Veiculo{
         return $this->opcionais;
     }
 
-    public function getMotorizacao() {
+    public function getMotorizacao(){ 
         return $this->motorizacao;
     }
 
     public function getValorBase() {
         return $this->valorBase;
-    }
+    
+  }
 
     public function getIdCategoria() {
         return $this->id_categoria;
     
   }
-  public function setIdCategoria($id_categoria) {
+    public function getVeiculoId() {
+        return $this->veiculo_id;
+    }
+
+    public function setVeiculoId($veiculo_id) {
+        $this->veiculo_id = $veiculo_id;
+    }
+
+    public function setPlaca($placa) {
+        $this->placa = $placa;
+    }
+
+    public function setIdCategoria($id_categoria) {
         $this->id_categoria = $id_categoria;
     }
     public function setNome($nome) {
@@ -73,5 +95,12 @@ class Veiculo{
     public function setValorBase($valorBase) {
         $this->valorBase = $valorBase;
     }
+   
+    public function getDisponivel() {
+    return $this->disponivel;
+    }
 
+    public function setDisponivel($disponivel) {
+    $this->disponivel = $disponivel;
+    }
 }
