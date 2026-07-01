@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse" id="menuAdm">
             <ul class="navbar-nav ms-auto gap-lg-2">
                 <li class="nav-item"><a class="nav-link text-dark" href="/LocadoraWeb/views/buscaVeiculo.php">Gerenciar Veículos</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="#">Controle de Locações</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="/LocadoraWeb/views/locacoes.php">Controle de Locações</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="/LocadoraWeb/views/clientes.php">Clientes Cadastrados</a></li>
                 
                 <li class="nav-item d-flex align-items-center">

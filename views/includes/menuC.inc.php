@@ -12,7 +12,7 @@
             <ul class="navbar-nav ms-auto gap-lg-2">
                 <li class="nav-item"><a class="nav-link text-dark" href="/LocadoraWeb/views/index.php">Início</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="/LocadoraWeb/views/buscaVeiculo.php">Alugar Veículo</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="#">Minhas Locações</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="/LocadoraWeb/views/minhasLocacoes.php">Minhas Locações</a></li>
                 
                 <li class="nav-item d-flex align-items-center">
                     <a class="nav-link text-primary fw-bold px-3" href="/LocadoraWeb/views/dashboard.php">Meu Painel</a>

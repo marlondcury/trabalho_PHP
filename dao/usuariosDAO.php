@@ -6,7 +6,7 @@ class usuariosDao {
 
     public function __construct() {
         $host = 'localhost';
-        $db   = 'locadoraVeiculos'; // Seu banco de dados
+        $db   = 'locadora_veiculos'; // Seu banco de dados
         $user = 'root';
         $pass = 'root'; 
 

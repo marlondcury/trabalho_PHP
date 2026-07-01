@@ -7,7 +7,7 @@ class VeiculoDAO
 
     public function __construct()
     {
-        $this->conexao = new Conexao();
+        $this->conexao = new ConexaoDao();
     }
 
     public function inserir($veiculo)

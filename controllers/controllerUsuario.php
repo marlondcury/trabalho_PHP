@@ -40,7 +40,7 @@ if (isset($_POST['entrar'])) {
 
             $perfil = $usuario['perfil'];
             // Salva na sessão
-            $_SESSION['usuarioLogado'] = ['user' => $nomeParaExibir];
+            $_SESSION['usuarioLogado'] = ['user' => $nomeParaExibir, 'email' => $login];
             $_SESSION['perfil'] = $perfil;
 
             // Redireciona para o Dashboard

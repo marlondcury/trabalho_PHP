@@ -37,7 +37,7 @@ include("menu.php");
 
 <div class="container py-5">
 
-    <?php if ($perfil == 'adm'): ?>
+    <?php if ($perfil == 'A'): ?>
         
         <h3 class="fw-bold mb-4">Visão Geral - Administração</h3>
         <div class="row g-4">
@@ -54,7 +54,7 @@ include("menu.php");
                     <div class="icone-card bg-success">📝</div>
                     <h4 class="fw-semibold">Locações</h4>
                     <p class="text-muted mb-3">Controle de reservas e devoluções.</p>
-                    <a href="#" class="btn btn-outline-primary mt-auto">Ver Locações</a>
+                    <a href="locacoes.php" class="btn btn-outline-primary mt-auto">Ver Locações</a>
                 </div>
             </div>
             <div class="col-md-4">
@@ -62,7 +62,7 @@ include("menu.php");
                     <div class="icone-card bg-warning">👥</div>
                     <h4 class="fw-semibold">Clientes</h4>
                     <p class="text-muted mb-3">Gerenciamento de usuários cadastrados.</p>
-                    <a href="#" class="btn btn-outline-primary mt-auto">Ver Clientes</a>
+                    <a href="clientes.php" class="btn btn-outline-primary mt-auto">Ver Clientes</a>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@ include("menu.php");
                     <div class="icone-card">📅</div>
                     <h4 class="fw-semibold">Minhas Locações</h4>
                     <p class="text-muted mb-3">Veja o histórico dos carros que você alugou e prazos de devolução.</p>
-                    <a href="#" class="btn btn-outline-primary mt-auto">Histórico</a>
+                    <a href="minhasLocacoes.php" class="btn btn-outline-primary mt-auto">Histórico</a>
                 </div>
             </div>
         </div>

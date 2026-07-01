@@ -5,7 +5,7 @@ class categoriaDao{
     private $con;
 
     function __construct(){
-        $conexao = new Conexao();
+        $conexao = new ConexaoDao();
         $this->con = $conexao->getConexao();
     }
 
