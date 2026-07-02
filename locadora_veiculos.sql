@@ -98,10 +98,13 @@ CREATE TABLE `exemplares` (
 
 CREATE TABLE `locacao` (
   `id_locacao` int NOT NULL AUTO_INCREMENT,
-  `data` date NOT NULL,
+  `data` datetime NOT NULL,
+  `data_fim` datetime DEFAULT NULL,
   `valor_total` float NOT NULL,
   `cpf_socio` varchar(11) NOT NULL,
-  `id_veiculo` int NOT NULL
+  `id_veiculo` varchar(8) NOT NULL,
+  `devolvida` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id_locacao`)
 ) ENGINE = InnoDB DEFAULT CHARSET = latin1;
 -- --------------------------------------------------------
 --
@@ -157,13 +160,6 @@ ADD PRIMARY KEY (`cpf`),
 ALTER TABLE `exemplares`
 ADD PRIMARY KEY (`id_exemplar`);
 --
--- Índices de tabela `locacao`
---
-ALTER TABLE `locacao`
-ADD PRIMARY KEY (`id_locacao`);
-ALTER TABLE `locacao`
-MODIFY `id_locacao` int NOT NULL AUTO_INCREMENT;
---
 -- Índices de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -189,3 +185,83 @@ COMMIT;
 ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
 ;
+INSERT INTO veiculos (
+    placa,
+    nome,
+    anoFabricacao,
+    fabricante,
+    opcionais,
+    motorizacao,
+    valorBase,
+    id_categoria
+  )
+VALUES (
+    'ABC1D23',
+    'Compass',
+    2023,
+    'Jeep',
+    'Ar-condicionado, Direção elétrica, Câmbio automático',
+    '2.0 Turbo Flex',
+    250,
+    1
+  ),
+  (
+    'DEF4E56',
+    'Tracker',
+    2022,
+    'Chevrolet',
+    'Ar-condicionado, Multimídia, Sensor de estacionamento',
+    '1.2 Turbo',
+    220,
+    1
+  ),
+  (
+    'GHI7F89',
+    'Onix',
+    2023,
+    'Chevrolet',
+    'Ar-condicionado, Direção elétrica',
+    '1.0 Flex',
+    120,
+    2
+  ),
+  (
+    'JKL0G12',
+    'HB20',
+    2022,
+    'Hyundai',
+    'Ar-condicionado, Multimídia',
+    '1.0 Flex',
+    110,
+    2
+  ),
+  (
+    'MNO3H45',
+    'Corolla',
+    2023,
+    'Toyota',
+    'Ar-condicionado, Câmbio automático, Bancos em couro',
+    '2.0 Flex',
+    180,
+    2
+  ),
+  (
+    'PQR6I78',
+    'Master',
+    2021,
+    'Renault',
+    'Ar-condicionado, 15 lugares',
+    '2.3 Diesel',
+    280,
+    3
+  ),
+  (
+    'STU9J01',
+    'Sprinter',
+    2022,
+    'Mercedes-Benz',
+    'Ar-condicionado, 16 lugares',
+    '2.2 Diesel',
+    320,
+    3
+  );

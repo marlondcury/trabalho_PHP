@@ -10,17 +10,22 @@ require_once '../dao/conexao.inc.php';
 $conexao = new ConexaoDao();
 $pdo = $conexao->getConexao();
 
-// Carrega clientes e veículos para os dropdowns
+// Carrega clientes e veículos (já com o valor da diária) para os dropdowns
 $clientes = $pdo->query("SELECT cpf, nome FROM clientes ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
-$veiculos = $pdo->query("SELECT placa, nome FROM veiculos ORDER BY nome")->fetchAll(PDO::FETCH_ASSOC);
+$veiculos = $pdo->query("
+    SELECT v.placa, v.nome, (v.valorBase + c.valor) AS valor_diaria
+    FROM veiculos v
+    JOIN categoria c ON v.id_categoria = c.id_categoria
+    ORDER BY v.nome
+")->fetchAll(PDO::FETCH_ASSOC);
 
 $modoEdicao = false;
 $locacao = [
-    'id_locacao'  => '',
-    'data'        => date('Y-m-d'),
-    'valor_total' => '',
-    'cpf_socio'   => '',
-    'id_veiculo'  => ''
+    'id_locacao' => '',
+    'data' => date('Y-m-d\TH:i'),
+    'data_fim' => date('Y-m-d\TH:i', strtotime('+1 day')),
+    'cpf_socio' => '',
+    'id_veiculo' => ''
 ];
 
 if (isset($_GET['id_locacao'])) {
@@ -31,12 +36,17 @@ if (isset($_GET['id_locacao'])) {
     $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($resultado) {
+        $resultado['data'] = date('Y-m-d\TH:i', strtotime($resultado['data']));
+        $resultado['data_fim'] = date('Y-m-d\TH:i', strtotime($resultado['data_fim']));
         $locacao = $resultado;
     } else {
         header("Location: locacoes.php");
         exit;
     }
 }
+
+$erro = $_SESSION['erro'] ?? null;
+unset($_SESSION['erro']);
 
 include("menu.php");
 ?>
@@ -73,16 +83,15 @@ include("menu.php");
                     <div class="row g-4">
 
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Data da Locação</label>
-                            <input type="date" name="data" class="form-control"
+                            <label class="form-label fw-semibold">Retirada (data e hora)</label>
+                            <input type="datetime-local" name="data" id="data_inicio" class="form-control"
                                    value="<?= htmlspecialchars($locacao['data']) ?>" required>
                         </div>
 
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Valor Total (R$)</label>
-                            <input type="number" name="valor_total" class="form-control"
-                                   placeholder="Ex: 350.00" step="0.01" min="0"
-                                   value="<?= htmlspecialchars($locacao['valor_total']) ?>" required>
+                            <label class="form-label fw-semibold">Devolução (data e hora)</label>
+                            <input type="datetime-local" name="data_fim" id="data_fim" class="form-control"
+                                   value="<?= htmlspecialchars($locacao['data_fim']) ?>" required>
                         </div>
 
                         <div class="col-md-12">
@@ -92,7 +101,7 @@ include("menu.php");
                                 <?php foreach ($clientes as $cli): ?>
                                     <option value="<?= htmlspecialchars($cli['cpf']) ?>"
                                         <?= $locacao['cpf_socio'] == $cli['cpf'] ? 'selected' : '' ?>>
-                                        <?= htmlspecialchars($cli['nome']) ?> �?" <?= htmlspecialchars($cli['cpf']) ?>
+                                        <?= htmlspecialchars($cli['nome']) ?> - <?= htmlspecialchars($cli['cpf']) ?>
                                     </option>
                                 <?php endforeach; ?>
                                 <?php if (empty($clientes)): ?>
@@ -103,18 +112,27 @@ include("menu.php");
 
                         <div class="col-md-12">
                             <label class="form-label fw-semibold">Veículo</label>
-                            <select name="id_veiculo" class="form-select" required>
+                            <select name="id_veiculo" id="id_veiculo" class="form-select" required>
                                 <option value="">-- Selecione um veículo --</option>
                                 <?php foreach ($veiculos as $v): ?>
                                     <option value="<?= htmlspecialchars($v['placa']) ?>"
+                                        data-valor-diaria="<?= htmlspecialchars($v['valor_diaria']) ?>"
                                         <?= $locacao['id_veiculo'] == $v['placa'] ? 'selected' : '' ?>>
-                                        <?= htmlspecialchars($v['placa']) ?> �?" <?= htmlspecialchars($v['nome']) ?>
+                                        <?= htmlspecialchars($v['placa']) ?> - <?= htmlspecialchars($v['nome']) ?>
+                                        (R$ <?= number_format($v['valor_diaria'], 2, ',', '.') ?>/dia)
                                     </option>
                                 <?php endforeach; ?>
                                 <?php if (empty($veiculos)): ?>
                                     <option disabled>Nenhum veículo cadastrado</option>
                                 <?php endif; ?>
                             </select>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="alert alert-info d-flex justify-content-between align-items-center mb-0">
+                                <span id="resumo-diarias">Selecione o veículo e as datas</span>
+                                <strong id="resumo-total"></strong>
+                            </div>
                         </div>
 
                     </div>
@@ -135,6 +153,51 @@ include("menu.php");
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const inicio = document.getElementById('data_inicio');
+    const fim = document.getElementById('data_fim');
+    const veiculoSelect = document.getElementById('id_veiculo');
+    const resumoDiarias = document.getElementById('resumo-diarias');
+    const resumoTotal = document.getElementById('resumo-total');
+
+    // Mesma regra do servidor: fecha os dias completos de 24h e só soma diária
+    // extra se o atraso passar da tolerância (2h). Mínimo de 1 diária.
+    const TOLERANCIA_HORAS = 2;
+    function calcularDiarias(inicioDate, fimDate) {
+        const diaMs = 1000 * 60 * 60 * 24;
+        const toleranciaMs = TOLERANCIA_HORAS * 60 * 60 * 1000;
+        const diffMs = fimDate - inicioDate;
+        const diasCompletos = Math.floor(diffMs / diaMs);
+        const resto = diffMs - (diasCompletos * diaMs);
+        const dias = diasCompletos + (resto > toleranciaMs ? 1 : 0);
+        return Math.max(1, dias);
+    }
+
+    function atualizarResumo() {
+        const opcao = veiculoSelect.options[veiculoSelect.selectedIndex];
+        const valorDiaria = opcao ? parseFloat(opcao.dataset.valorDiaria) : NaN;
+        const inicioDate = new Date(inicio.value);
+        const fimDate = new Date(fim.value);
+
+        if (!valorDiaria || isNaN(inicioDate) || isNaN(fimDate)) {
+            resumoDiarias.textContent = 'Selecione o veículo e as datas';
+            resumoTotal.textContent = '';
+            return;
+        }
+
+        const diarias = calcularDiarias(inicioDate, fimDate);
+        resumoDiarias.textContent = diarias + (diarias === 1 ? ' diária' : ' diárias');
+        resumoTotal.textContent = 'R$ ' + (diarias * valorDiaria).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+
+    inicio.addEventListener('change', () => {
+        fim.min = inicio.value;
+        if (fim.value < inicio.value) fim.value = inicio.value;
+        atualizarResumo();
+    });
+    fim.addEventListener('change', atualizarResumo);
+    veiculoSelect.addEventListener('change', atualizarResumo);
+    atualizarResumo();
+</script>
 </body>
 </html>
-

@@ -58,6 +58,22 @@ include("menu.php");
             <div class="alert alert-danger mb-4">
                 Este veículo já está alugado na data selecionada. Escolha outra data.
             </div>
+            <?php elseif (isset($_GET['erro']) && $_GET['erro'] == 'jaTemLocacao'): ?>
+            <div class="alert alert-danger mb-4">
+                Você já possui uma locação em aberto. Só é possível alugar um novo veículo após a conclusão da locação atual.
+            </div>
+            <?php elseif (isset($_GET['erro']) && $_GET['erro'] == 'dataInvalida'): ?>
+            <div class="alert alert-danger mb-4">
+                A data de devolução não pode ser anterior à data de retirada.
+            </div>
+            <?php elseif (isset($_GET['erro']) && $_GET['erro'] == 'veiculoInvalido'): ?>
+            <div class="alert alert-danger mb-4">
+                Não foi possível calcular o valor da locação para este veículo. Tente novamente.
+            </div>
+            <?php elseif (isset($_GET['erro']) && $_GET['erro'] == 'cadastroIncompleto'): ?>
+            <div class="alert alert-danger mb-4">
+                Seu cadastro de cliente está incompleto e por isso não é possível concluir a locação. Procure o administrador para regularizar seu cadastro.
+            </div>
             <?php endif; ?>
 
             <div class="card card-moderno p-4 mb-4">
@@ -84,8 +100,8 @@ include("menu.php");
                         <p class="fw-semibold"><?= htmlspecialchars($veiculo['categoria']) ?></p>
                     </div>
                     <div class="col-6">
-                        <p class="mb-1 text-muted small">Valor Total</p>
-                        <p class="fw-bold text-primary fs-5">R$ <?= number_format($veiculo['valor_total'], 2, ',', '.') ?></p>
+                        <p class="mb-1 text-muted small">Valor da Diária</p>
+                        <p class="fw-bold text-primary fs-5">R$ <?= number_format($veiculo['valor_total'], 2, ',', '.') ?> /dia</p>
                     </div>
                 </div>
             </div>
@@ -97,15 +113,20 @@ include("menu.php");
 
                     <div class="row g-4 mb-4">
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Data de Retirada</label>
-                            <input type="date" name="data" id="data_inicio" class="form-control"
-                                   value="<?= date('Y-m-d') ?>" min="<?= date('Y-m-d') ?>" required>
+                            <label class="form-label fw-semibold">Retirada (data e hora)</label>
+                            <input type="datetime-local" name="data" id="data_inicio" class="form-control"
+                                   value="<?= date('Y-m-d\TH:i') ?>" min="<?= date('Y-m-d\TH:i') ?>" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="form-label fw-semibold">Data de Devolução</label>
-                            <input type="date" name="data_fim" id="data_fim" class="form-control"
-                                   value="<?= date('Y-m-d') ?>" min="<?= date('Y-m-d') ?>" required>
+                            <label class="form-label fw-semibold">Devolução (data e hora)</label>
+                            <input type="datetime-local" name="data_fim" id="data_fim" class="form-control"
+                                   value="<?= date('Y-m-d\TH:i', strtotime('+1 day')) ?>" min="<?= date('Y-m-d\TH:i') ?>" required>
                         </div>
+                    </div>
+
+                    <div class="alert alert-info d-flex justify-content-between align-items-center">
+                        <span id="resumo-diarias">1 diária</span>
+                        <strong id="resumo-total">R$ <?= number_format($veiculo['valor_total'], 2, ',', '.') ?></strong>
                     </div>
 
                     <div class="d-flex gap-2 justify-content-end">
@@ -123,10 +144,40 @@ include("menu.php");
 <script>
     const inicio = document.getElementById('data_inicio');
     const fim = document.getElementById('data_fim');
+    const valorDiaria = <?= (float) $veiculo['valor_total'] ?>;
+    const resumoDiarias = document.getElementById('resumo-diarias');
+    const resumoTotal = document.getElementById('resumo-total');
+
+    // Fecha os dias completos de 24h e só soma diária
+    // tolerância de 2h
+    const TOLERANCIA_HORAS = 2;
+    function calcularDiarias(inicioDate, fimDate) {
+        const diaMs = 1000 * 60 * 60 * 24;
+        const toleranciaMs = TOLERANCIA_HORAS * 60 * 60 * 1000;
+        const diffMs = fimDate - inicioDate;
+        const diasCompletos = Math.floor(diffMs / diaMs);
+        const resto = diffMs - (diasCompletos * diaMs);
+        const dias = diasCompletos + (resto > toleranciaMs ? 1 : 0);
+        return Math.max(1, dias);
+    }
+
+    function atualizarResumo() {
+        const inicioDate = new Date(inicio.value);
+        const fimDate = new Date(fim.value);
+        if (isNaN(inicioDate) || isNaN(fimDate)) return;
+
+        const diarias = calcularDiarias(inicioDate, fimDate);
+        resumoDiarias.textContent = diarias + (diarias === 1 ? ' diária' : ' diárias');
+        resumoTotal.textContent = 'R$ ' + (diarias * valorDiaria).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+
     inicio.addEventListener('change', () => {
         fim.min = inicio.value;
         if (fim.value < inicio.value) fim.value = inicio.value;
+        atualizarResumo();
     });
+    fim.addEventListener('change', atualizarResumo);
+    atualizarResumo();
 </script>
 </body>
 </html>

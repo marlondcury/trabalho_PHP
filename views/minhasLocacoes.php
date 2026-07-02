@@ -13,7 +13,7 @@ $pdo = $conexao->getConexao();
 $email = $_SESSION['usuarioLogado']['email'];
 
 $stmt = $pdo->prepare("
-    SELECT l.id_locacao, l.data, l.data_fim, l.valor_total, l.id_veiculo AS placa,
+    SELECT l.id_locacao, l.data, l.data_fim, l.valor_total, l.devolvida, l.id_veiculo AS placa,
            COALESCE(v.nome, l.id_veiculo) AS nome_veiculo
     FROM locacao l
     JOIN clientes c ON l.cpf_socio = c.cpf
@@ -24,7 +24,7 @@ $stmt = $pdo->prepare("
 $stmt->execute(['email' => $email]);
 $locacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$hoje = date('Y-m-d');
+$hoje = date('Y-m-d H:i:s');
 
 include("menu.php");
 ?>
@@ -72,15 +72,17 @@ include("menu.php");
                         <?php foreach ($locacoes as $loc): ?>
                         <tr>
                             <td class="py-3"><?= htmlspecialchars($loc['id_locacao']) ?></td>
-                            <td class="py-3"><?= htmlspecialchars(date('d/m/Y', strtotime($loc['data']))) ?></td>
-                            <td class="py-3"><?= $loc['data_fim'] ? htmlspecialchars(date('d/m/Y', strtotime($loc['data_fim']))) : '�?"' ?></td>
+                            <td class="py-3"><?= htmlspecialchars(date('d/m/Y H:i', strtotime($loc['data']))) ?></td>
+                            <td class="py-3"><?= $loc['data_fim'] ? htmlspecialchars(date('d/m/Y H:i', strtotime($loc['data_fim']))) : '-' ?></td>
                             <td class="py-3 fw-semibold text-dark"><?= htmlspecialchars($loc['nome_veiculo']) ?></td>
                             <td class="py-3"><?= htmlspecialchars($loc['placa']) ?></td>
                             <td class="py-3">R$ <?= number_format($loc['valor_total'], 2, ',', '.') ?></td>
                             <td class="py-3">
                                 <?php $dataRef = $loc['data_fim'] ?? $loc['data']; ?>
-                                <?php if ($dataRef <= $hoje): ?>
+                                <?php if ($loc['devolvida']): ?>
                                     <span class="badge bg-success">Concluída</span>
+                                <?php elseif ($dataRef < $hoje): ?>
+                                    <span class="badge bg-danger">Atrasada</span>
                                 <?php else: ?>
                                     <span class="badge bg-warning text-dark">Em Aberto</span>
                                 <?php endif; ?>

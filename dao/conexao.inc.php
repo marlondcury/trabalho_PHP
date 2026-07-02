@@ -1,4 +1,7 @@
 <?php
+// Garante que date()/DateTime usem o horário de Brasília
+date_default_timezone_set('America/Sao_Paulo');
+
 class ConexaoDao {
     private $servidor_mysql = 'localhost';
     private $nome_banco = 'locadora_veiculos';

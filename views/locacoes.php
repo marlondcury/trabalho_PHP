@@ -17,6 +17,8 @@ $stmt = $pdo->query("
 ");
 $locacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$agora = date('Y-m-d H:i:s');
+
 include("menu.php");
 ?>
 <!DOCTYPE html>
@@ -52,9 +54,11 @@ include("menu.php");
                     <tr>
                         <th class="text-secondary py-3">#</th>
                         <th class="text-secondary py-3">Data</th>
+                        <th class="text-secondary py-3">Data Fim</th>
                         <th class="text-secondary py-3">Cliente (CPF)</th>
                         <th class="text-secondary py-3">ID Veículo</th>
                         <th class="text-secondary py-3">Valor Total</th>
+                        <th class="text-secondary py-3">Status</th>
                         <th class="text-secondary text-center py-3">Ações</th>
                     </tr>
                 </thead>
@@ -63,15 +67,32 @@ include("menu.php");
                         <?php foreach ($locacoes as $loc): ?>
                         <tr>
                             <td class="py-3"><?= htmlspecialchars($loc['id_locacao']) ?></td>
-                            <td class="py-3"><?= htmlspecialchars(date('d/m/Y', strtotime($loc['data']))) ?></td>
+                            <td class="py-3"><?= htmlspecialchars(date('d/m/Y H:i', strtotime($loc['data']))) ?></td>
+                            <td class="py-3"><?= !empty($loc['data_fim']) ? htmlspecialchars(date('d/m/Y H:i', strtotime($loc['data_fim']))) : '-' ?></td>
                             <td class="py-3 fw-semibold text-dark">
                                 <?= htmlspecialchars($loc['nome_cliente'] ?? $loc['cpf_socio']) ?>
                                 <small class="text-muted d-block"><?= htmlspecialchars($loc['cpf_socio']) ?></small>
                             </td>
                             <td class="py-3"><?= htmlspecialchars($loc['id_veiculo']) ?></td>
                             <td class="py-3">R$ <?= number_format($loc['valor_total'], 2, ',', '.') ?></td>
+                            <td class="py-3">
+                                <?php if ($loc['devolvida']): ?>
+                                    <span class="badge bg-success">Concluída</span>
+                                <?php elseif (!empty($loc['data_fim']) && $loc['data_fim'] < $agora): ?>
+                                    <span class="badge bg-danger">Atrasada</span>
+                                <?php else: ?>
+                                    <span class="badge bg-warning text-dark">Em Aberto</span>
+                                <?php endif; ?>
+                            </td>
                             <td class="py-3 text-center">
                                 <div class="d-flex gap-2 justify-content-center">
+                                    <?php if (!$loc['devolvida']): ?>
+                                    <a href="../controllers/controllerLocacao.php?acao=devolver&id_locacao=<?= urlencode($loc['id_locacao']) ?>"
+                                       class="btn btn-sm btn-outline-success px-3"
+                                       onclick="return confirm('Marcar a locação #<?= $loc['id_locacao'] ?> como devolvida agora? O valor total será recalculado com base no tempo real de uso.');">
+                                       Marcar Devolução
+                                    </a>
+                                    <?php endif; ?>
                                     <a href="formLocacao.php?id_locacao=<?= urlencode($loc['id_locacao']) ?>"
                                        class="btn btn-sm btn-outline-primary px-3">Editar</a>
                                     <a href="../controllers/controllerLocacao.php?acao=excluir&id_locacao=<?= urlencode($loc['id_locacao']) ?>"
@@ -85,7 +106,7 @@ include("menu.php");
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" class="text-center text-muted py-5">Nenhuma locação cadastrada.</td>
+                            <td colspan="8" class="text-center text-muted py-5">Nenhuma locação cadastrada.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
