@@ -20,7 +20,7 @@ if (isset($_POST['entrar'])) {
 
     try {
         // INSTANCIANDO O  DAO AQUI!
-        $conexao = new ConexaoDao();
+        $conexao = new Conexao();
         $pdo = $conexao->getConexao();
 
         // PASSO 1: Verifica na tabela 'usuarios' se o login e senha batem

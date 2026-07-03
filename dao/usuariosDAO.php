@@ -8,7 +8,7 @@ class usuariosDao {
         $host = 'localhost';
         $db   = 'locadora_veiculos'; // Seu banco de dados
         $user = 'root';
-        $pass = 'root'; 
+        $pass = ''; // Senha do banco de dados (vazia no XAMPP por padrão)
 
         try {
             $this->conexao = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
