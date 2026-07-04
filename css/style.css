@@ -1,0 +1,189 @@
+/* =========================================
+   VARIÁVEIS GERAIS E BASE
+   ========================================= */
+:root {
+    --cor-primaria: #4647AE; /* Azul corporativo, substitui o verde neon */
+    --cor-primaria-hover: #0b5ed7;
+    --cor-secundaria: #0f172a; /* Azul escuro sofisticado/SaaS */
+    --cor-fundo: #f8fafc; /* Fundo cinza ultra-claro, mais moderno */
+    --cor-texto: #475569; /* Texto cinza suave, melhor para leitura que preto puro */
+    --cor-titulo: #0f172a;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+/* Mantemos o login escuro para destacar o card branco */
+body.pagina-login {
+    background: linear-gradient(rgba(15, 23, 42, .85), rgba(15, 23, 42, .85)),
+                url('../views/imagens/hero.jpg') center/cover no-repeat fixed;
+    min-height: 100vh;
+}
+
+/* =========================================
+   NAVEGAÇÃO (Clean & Branca)
+   ========================================= */
+.navbar {
+    background: #ffffff !important; /* Fundo branco e limpo */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Linha divisória elegante */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .02);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: -.5px;
+    color: var(--cor-titulo) !important;
+}
+
+/* =========================================
+   CABEÇALHOS E BANNERS (Hero)
+   ========================================= */
+.hero {
+    min-height: 85vh;
+    color: var(--cor-fundo); 
+    display: flex;
+    align-items: center;
+    background: linear-gradient(rgba(15, 23, 42, .85), rgba(15, 23, 42, .85)),
+                url('../views/imagens/hero.jpg') center/cover no-repeat fixed;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1.5px; /* Deixa a fonte mais unida e moderna */
+}
+
+.hero p {
+    font-size: 1.15rem;
+    max-width: 700px;
+    color: var(--cor-fundo);
+    margin-top: 20px;
+}
+
+/* Páginas internas com cabeçalho escuro sólido (sem degradê) */
+.page-header, .header-contato, .header-empresa {
+    background: var(--cor-secundaria);
+    color: white;
+    padding: 70px 0;
+}
+
+/* =========================================
+   CARDS E CAIXAS
+   ========================================= */
+.card-bloco, .card-contato, .card-empresa, .card-box, .destaque {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.04);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px -10px rgba(15, 23, 42, .06); /* Sombra difusa e premium */
+}
+
+.card-moderno {
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,0.04);
+    border-radius: 20px;
+    box-shadow: 0 10px 40px -10px rgba(15, 23, 42, .06);
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1); /* Transição mais fluida */
+    overflow: hidden;
+}
+
+.card-moderno:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -10px rgba(15, 23, 42, .12);
+}
+
+.login-box {
+    border: none;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    background: #ffffff;
+}
+
+.login-header {
+    background: var(--cor-secundaria);
+    color: white;
+    padding: 32px;
+}
+
+/* =========================================
+   FORMULÁRIOS
+   ========================================= */
+.form-control, .form-select {
+    border-radius: 12px;
+    padding: 14px 16px;
+    border: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+}
+
+.form-control:focus {
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
+    background-color: #ffffff;
+}
+
+/* =========================================
+   BOTÕES
+   ========================================= */
+.btn-buscar, .btn-enviar, .btn-login, .btn-acao {
+    border-radius: 12px;
+    padding: 14px 28px;
+    font-weight: 600;
+    transition: all .2s ease;
+}
+
+.btn-custom {
+    border-radius: 999px;
+    padding: 12px 24px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: var(--cor-primaria);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--cor-primaria-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(13, 110, 253, .25);
+}
+
+/* =========================================
+   UTILITÁRIOS E EXTRAS
+   ========================================= */
+.secao { padding: 90px 0; }
+
+.icone-card {
+    width: 60px; height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 16px;
+    background: rgba(13, 110, 253, 0.08); /* Fundo sutil e translúcido */
+    color: var(--cor-primaria); /* Cor sólida no ícone */
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+.footer {
+    background: #ffffff;
+    color: var(--cor-texto);
+    padding: 40px 0;
+    border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+/* Ajustado para ficar legível no fundo branco da Hero */
+.badge-info {
+    background: rgba(13, 110, 253, 0.1);
+    color: var(--cor-fundo);
+    border: 1px solid rgba(13, 110, 253, 0.2);
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
