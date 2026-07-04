@@ -12,10 +12,15 @@
             <ul class="navbar-nav ms-auto gap-lg-2">
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/buscaVeiculo.php">Gerenciar Veículos</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/formVeiculoCadastrar.php">Cadastrar Veículos</a></li>
+<<<<<<< HEAD
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/locacoes.php">Controle de Locações</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/clientes.php">Clientes Cadastrados</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/categorias.php">Categorias</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/exemplares.php">Exemplares</a></li>
+=======
+                <li class="nav-item"><a class="nav-link text-dark" href="#">Controle de Locações</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/clientes.php">Clientes Cadastrados</a></li>
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
                 
 
                 <li class="nav-item d-flex align-items-center">

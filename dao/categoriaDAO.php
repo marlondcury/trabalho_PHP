@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php
 require_once 'conexao.inc.php';
 
@@ -61,3 +62,31 @@ class categoriaDao{
     }
 }
 ?>
+=======
+<?php
+require_once 'conexao.inc.php';
+
+class categoriaDao{
+    private $con;
+
+    function __construct(){
+        $conexao = new ConexaoDao();
+        $this->con = $conexao->getConexao();
+    }
+
+    public function getCategorias(){
+        $rs = $this->con->query("select * from categorias");
+
+        $lista = array();        
+        while($registro = $rs->fetch(PDO::FETCH_OBJ)){
+                
+            $lista[] = $registro;
+        }
+        return $lista;
+    }
+
+}
+
+
+?>
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c

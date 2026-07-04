@@ -9,6 +9,7 @@ require_once '../dao/conexao.inc.php';
 $conexao = new ConexaoDao();
 $pdo = $conexao->getConexao();
 
+<<<<<<< HEAD
 $dataInicio = $_GET['data_inicio'] ?? '';
 $dataFim = $_GET['data_fim'] ?? '';
 
@@ -35,6 +36,14 @@ $sql .= " ORDER BY l.id_locacao DESC";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
+=======
+$stmt = $pdo->query("
+    SELECT l.*, c.nome AS nome_cliente
+    FROM locacao l
+    LEFT JOIN clientes c ON l.cpf_socio = c.cpf
+    ORDER BY l.id_locacao DESC
+");
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
 $locacoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $agora = date('Y-m-d H:i:s');
@@ -67,6 +76,7 @@ include("menu.php");
         <a href="formLocacao.php" class="btn btn-primary btn-acao">+ Nova Locação</a>
     </div>
 
+<<<<<<< HEAD
     <div class="card card-moderno p-4 mb-4">
         <form action="locacoes.php" method="GET" class="row g-3 align-items-end">
             <div class="col-md-4">
@@ -84,6 +94,8 @@ include("menu.php");
         </form>
     </div>
 
+=======
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
     <div class="card card-moderno p-4">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">

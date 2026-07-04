@@ -12,8 +12,12 @@
             <ul class="navbar-nav ms-auto gap-lg-2">
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/index.php">Início</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/buscaVeiculo.php">Alugar Veículo</a></li>
+<<<<<<< HEAD
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/minhasLocacoes.php">Minhas Locações</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="/trabalho_PHP/views/meuCadastro.php">Meu Cadastro</a></li>
+=======
+                <li class="nav-item"><a class="nav-link text-dark" href="#">Minhas Locações</a></li>
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
                 
                 <li class="nav-item d-flex align-items-center">
                     <a class="nav-link text-primary fw-bold px-3" href="/trabalho_PHP/views/dashboard.php">Meu Painel</a>

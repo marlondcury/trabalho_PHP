@@ -24,7 +24,11 @@ include("menu.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Locadora Web</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<<<<<<< HEAD
     <link rel="stylesheet" href="/trabalho_PHP/css/style.css">
+=======
+    <link rel="stylesheet" href="/LocadoraWeb/css/style.css">
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
 </head>
 <body>
 
@@ -46,7 +50,11 @@ include("menu.php");
                     <div class="icone-card bg-danger">🚘</div>
                     <h4 class="fw-semibold">Gerenciar Veículos</h4>
                     <p class="text-muted mb-3">Adicione, edite ou remova veículos da frota.</p>
+<<<<<<< HEAD
                     <a href="buscaVeiculo.php" class="btn btn-outline-primary mt-auto">Acessar</a>
+=======
+                    <a href="veiculos.php" class="btn btn-outline-primary mt-auto">Acessar</a>
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
                 </div>
             </div>
             <div class="col-md-4">
@@ -65,6 +73,7 @@ include("menu.php");
                     <a href="clientes.php" class="btn btn-outline-primary mt-auto">Ver Clientes</a>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="col-md-4">
                 <div class="card card-moderno h-100 p-4">
                     <div class="icone-card">🏷️</div>
@@ -81,6 +90,8 @@ include("menu.php");
                     <a href="exemplares.php" class="btn btn-outline-primary mt-auto">Ver Exemplares</a>
                 </div>
             </div>
+=======
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
         </div>
 
     <?php else: ?>
@@ -103,6 +114,7 @@ include("menu.php");
                     <a href="minhasLocacoes.php" class="btn btn-outline-primary mt-auto">Histórico</a>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="col-md-6">
                 <div class="card card-moderno h-100 p-4">
                     <div class="icone-card">🧾</div>
@@ -111,6 +123,8 @@ include("menu.php");
                     <a href="meuCadastro.php" class="btn btn-outline-primary mt-auto">Ver Cadastro</a>
                 </div>
             </div>
+=======
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
         </div>
         
     <?php endif; ?>

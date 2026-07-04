@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+<<<<<<< HEAD
 require_once '../dao/conexao.inc.php';
 $acao = $_REQUEST['acao'] ?? '';
 
@@ -25,6 +26,16 @@ if (in_array($acao, $acoesProprias)) {
         exit;
     }
 }
+=======
+// Trava de segurança
+if (!isset($_SESSION['usuarioLogado']) || $_SESSION['perfil'] != 'A') {
+    header("Location: ../views/dashboard.php");
+    exit;
+}
+
+require_once '../dao/conexao.inc.php';
+$acao = $_REQUEST['acao'] ?? '';
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
 
 try {
     $conexao = new conexaoDao(); 
@@ -125,6 +136,7 @@ try {
         exit;
     }
 
+<<<<<<< HEAD
     // =======================================================
     // AÇÃO 4: CLIENTE ATUALIZA O PRÓPRIO CADASTRO
     // =======================================================
@@ -191,6 +203,8 @@ try {
         exit;
     }
 
+=======
+>>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
 } catch (PDOException $e) {
     echo "<div style='font-family: sans-serif; text-align: center; margin-top: 50px;'>";
     echo "<h3>Erro ao processar a solicitação no Banco de Dados.</h3>";
