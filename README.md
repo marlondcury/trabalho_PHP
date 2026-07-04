@@ -8,11 +8,11 @@ Projeto final (2º Trabalho Prático / 4ª Avaliação) desenvolvido para a disc
 
 ---
 
-## 🎯 Objetivo do Projeto
+## Objetivo do Projeto
 
 O objetivo deste sistema é aplicar na prática os conceitos de construção de páginas dinâmicas utilizando **PHP** e **Banco de Dados (MySQL)**. A aplicação simula o ambiente web de uma locadora de veículos, englobando a divulgação da empresa, reserva de carros e painéis administrativos com controle de acesso por perfil.
 
-## ✅ Funcionalidades Implementadas
+##  Funcionalidades Implementadas
 
 O sistema foi dividido em três áreas principais de acesso, garantindo usabilidade, harmonia e navegação intuitiva (mapa de navegação em todas as páginas).
 
@@ -44,7 +44,7 @@ O sistema foi dividido em três áreas principais de acesso, garantindo usabilid
 * **Frontend:** HTML5, CSS3 (layout responsivo, [Bootstrap 5](https://getbootstrap.com/) via CDN)
 * **Acesso a dados:** PDO com prepared statements
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
 trabalho_PHP/
@@ -57,7 +57,7 @@ trabalho_PHP/
 └── locadora_veiculos.sql   # Script de criação e carga inicial do banco
 ```
 
-## 🚀 Como rodar localmente (XAMPP)
+##  Como rodar localmente (XAMPP)
 
 1. Clone o repositório **dentro da pasta `htdocs` do XAMPP, com o nome exato `trabalho_PHP`** (os links internos do site usam `/trabalho_PHP/...` como raiz, então o nome da pasta precisa ser esse):
    ```
@@ -71,9 +71,9 @@ trabalho_PHP/
    http://localhost/trabalho_PHP/views/index.php
    ```
 
-> ⚠️ Abrir os arquivos `.php` direto do disco (ex: dando duplo-clique ou usando `file:///C:/...`) **não funciona** — o navegador não interpreta PHP sozinho. É preciso acessar via `http://localhost/...`, com o Apache rodando.
 
-## 👤 Usuários de teste
+
+##  Usuários de teste
 
 Já vêm cadastrados no script `locadora_veiculos.sql`:
 
@@ -83,7 +83,7 @@ Já vêm cadastrados no script `locadora_veiculos.sql`:
 | Cliente       | `teste1@email` | `1234`   |
 | Cliente       | `sdfd@email`   | `123456` |
 
-## 👥 Integrantes
+## Integrantes
 
 Suelen, Sabrina, Marlon e Sthefani 
 
@@ -122,8 +122,3 @@ O sistema foi dividido em três áreas principais de acesso, garantindo usabilid
 - [] **Controle de Acervo (CRUD):** Inclusão, exclusão, alteração e consulta de Veículos, Categorias e Exemplares.
 - [] **Relatórios de Locação:** Consulta avançada de locações filtradas por intervalo de datas.
 
-## 🛠️ Tecnologias Utilizadas
-* **Backend:** PHP
-* **Banco de Dados:** MySQL (Base `locadora.sql` normalizada e adaptada)
-* **Frontend:** HTML5, CSS3 (Layout responsivo e focado em usabilidade)
->>>>>>> 9bbff463848663aae26627f0d89f6e3eb91cf90c
